@@ -1,0 +1,12 @@
+/Users/Michael.Wang/Desktop/MYOB/MYOB Katas/Language Design/MontyHallKata/MontyHall/bin/Debug/netcoreapp3.1/MontyHall.deps.json
+/Users/Michael.Wang/Desktop/MYOB/MYOB Katas/Language Design/MontyHallKata/MontyHall/bin/Debug/netcoreapp3.1/MontyHall.runtimeconfig.json
+/Users/Michael.Wang/Desktop/MYOB/MYOB Katas/Language Design/MontyHallKata/MontyHall/bin/Debug/netcoreapp3.1/MontyHall.runtimeconfig.dev.json
+/Users/Michael.Wang/Desktop/MYOB/MYOB Katas/Language Design/MontyHallKata/MontyHall/bin/Debug/netcoreapp3.1/MontyHall.dll
+/Users/Michael.Wang/Desktop/MYOB/MYOB Katas/Language Design/MontyHallKata/MontyHall/bin/Debug/netcoreapp3.1/MontyHall.pdb
+/Users/Michael.Wang/Desktop/MYOB/MYOB Katas/Language Design/MontyHallKata/MontyHall/obj/Debug/netcoreapp3.1/MontyHall.csprojAssemblyReference.cache
+/Users/Michael.Wang/Desktop/MYOB/MYOB Katas/Language Design/MontyHallKata/MontyHall/obj/Debug/netcoreapp3.1/MontyHall.AssemblyInfoInputs.cache
+/Users/Michael.Wang/Desktop/MYOB/MYOB Katas/Language Design/MontyHallKata/MontyHall/obj/Debug/netcoreapp3.1/MontyHall.AssemblyInfo.cs
+/Users/Michael.Wang/Desktop/MYOB/MYOB Katas/Language Design/MontyHallKata/MontyHall/obj/Debug/netcoreapp3.1/MontyHall.csproj.CoreCompileInputs.cache
+/Users/Michael.Wang/Desktop/MYOB/MYOB Katas/Language Design/MontyHallKata/MontyHall/obj/Debug/netcoreapp3.1/MontyHall.dll
+/Users/Michael.Wang/Desktop/MYOB/MYOB Katas/Language Design/MontyHallKata/MontyHall/obj/Debug/netcoreapp3.1/MontyHall.pdb
+/Users/Michael.Wang/Desktop/MYOB/MYOB Katas/Language Design/MontyHallKata/MontyHall/obj/Debug/netcoreapp3.1/MontyHall.genruntimeconfig.cache
