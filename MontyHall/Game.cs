@@ -7,16 +7,21 @@ namespace MontyHall
 
         public int DoorQuantity { get; private set;}
         public List<Door> DoorsList { get; private set;} = new List<Door>();
+        public IRandomiser Randomiser { get; private set; }
+        public IContestant Contestant { get; private set; }
 
-        public Game(int doorQuantity)
+        public Game(int doorQuantity, IRandomiser randomiser, IContestant contestant)
         {
             DoorQuantity = doorQuantity;
+            Randomiser = randomiser;
+            Contestant = contestant;
         }
         public void Run()
         {
             System.Console.WriteLine("game runs");
             CreateDoors(DoorQuantity);
             AssignDoorPrize();
+            Contestant.ChooseDoor(doorsList: DoorsList, randomiser: Randomiser);
         }
 
         public bool DidContestantWin()
@@ -34,7 +39,7 @@ namespace MontyHall
 
         private void AssignDoorPrize()
         {
-            var randomNumber = 0;
+            var randomNumber = Randomiser.GenerateNumber(DoorQuantity);
             DoorsList[randomNumber].HasPrize = true;
         }
     }
