@@ -10,7 +10,7 @@ namespace MontyHall.Tests
         [InlineData(3,3)]
         public void ShouldGenerateDoorsList_GivenQuantity_WhenGameRuns(int expected, int doorQuantity)
         {
-            var game = new Game(doorQuantity: doorQuantity, randomiser: new Randomiser(), contestant: new Contestant());
+            var game = new Game(doorQuantity: doorQuantity, randomiser: new Randomiser(), contestant: new Contestant(), new Host());
             
             game.Run();
             var actual = game.DoorsList.Count;
@@ -22,7 +22,7 @@ namespace MontyHall.Tests
         public void ShouldAssignDoorPrize_WhenGameRuns()
         {
             var mockRandomiser = new Mock<IRandomiser>();
-            var game = new Game(doorQuantity: 3, randomiser: mockRandomiser.Object, new Contestant());
+            var game = new Game(doorQuantity: 3, randomiser: mockRandomiser.Object, new Contestant(), new Host());
 
             mockRandomiser.Setup(x => x.GenerateNumber(It.IsAny<int>())).Returns(0);
 
@@ -36,7 +36,7 @@ namespace MontyHall.Tests
         public void ContestantShouldChooseDoor_WhenGameRuns()
         {
             var mockContestant = new Mock<IContestant>();
-            var game = new Game(doorQuantity: 3, randomiser: new Randomiser(), mockContestant.Object);
+            var game = new Game(doorQuantity: 3, randomiser: new Randomiser(), mockContestant.Object, new Host());
 
             game.Run();
 
@@ -46,7 +46,7 @@ namespace MontyHall.Tests
         [Fact]
         public void HostShouldOpenDoorWithNoPrize()
         {
-            var mockHost = new Mock<Host>();
+            var mockHost = new Mock<IHost>();
             var game = new Game(doorQuantity: 3, randomiser: new Randomiser(), new Contestant(), mockHost.Object);
 
             game.Run();

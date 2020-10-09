@@ -9,12 +9,14 @@ namespace MontyHall
         public List<Door> DoorsList { get; private set;} = new List<Door>();
         public IRandomiser Randomiser { get; private set; }
         public IContestant Contestant { get; private set; }
+        public IHost Host { get; private set; }
 
-        public Game(int doorQuantity, IRandomiser randomiser, IContestant contestant)
+        public Game(int doorQuantity, IRandomiser randomiser, IContestant contestant, IHost host)
         {
             DoorQuantity = doorQuantity;
             Randomiser = randomiser;
             Contestant = contestant;
+            Host = host;
         }
         public void Run()
         {
@@ -22,6 +24,7 @@ namespace MontyHall
             CreateDoors(DoorQuantity);
             AssignDoorPrize();
             Contestant.ChooseDoor(doorsList: DoorsList, randomiser: Randomiser);
+            Host.RevealDoorWithNoPrize(DoorsList);
         }
 
         public bool DidContestantWin()
