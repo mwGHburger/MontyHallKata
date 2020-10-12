@@ -5,18 +5,21 @@ namespace MontyHall.Tests
 {
     public class HostTests
     {
+        Door firstDoor = new Door();
+        Door selectedDoor = new Door();
+        Door expectedDoor = new Door();
+        
         [Fact]
         public void ShouldReturnDoorNotChosen_AndWithPrize()
         {
-            var expectedDoor = new Door();
             var doors = new List<Door>()
             {
-                new Door(),
-                new Door(),
+                firstDoor,
+                selectedDoor,
                 expectedDoor
             };
-            doors[0].HasPrize = true;
-            doors[1].HasBeenSelected = true;
+            firstDoor.HasPrize = true;
+            selectedDoor.HasBeenSelected = true;
             var host = new Host();
 
             var actual = host.RevealDoorWithNoPrize(doors);

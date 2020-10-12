@@ -7,17 +7,20 @@ namespace MontyHall.Tests
 {
     public class ContestantTests
     {
+        Mock<IRandomiser> mockRandomiser = new Mock<IRandomiser>();
+        Door expectedDoor = new Door();
+        Door doorWithPrize = new Door();
+        
         [Fact]
         public void ShouldSelectSpecificDoor()
         {
-            var expectedDoor = new Door();
             var doors = new List<Door>()
             {
                 new Door(),
                 expectedDoor,
                 new Door()
             };
-            var mockRandomiser = new Mock<IRandomiser>();
+            
             var strategy = new Strategy(true);
             var contestant = new Contestant(strategy);
 
@@ -33,8 +36,6 @@ namespace MontyHall.Tests
         [Fact]
         public void ContestantShouldHoldNewDoor_WhenSwitchStrategyIsTrue()
         {
-            var expectedDoor = new Door();
-            var doorWithPrize = new Door();
             doorWithPrize.HasPrize = true;
             var firstSelectedDoor = new Door();
             var doors = new List<Door>()
@@ -45,13 +46,10 @@ namespace MontyHall.Tests
             };
             var strategy = new Strategy(true);
             var contestant = new Contestant(strategy);
-            var mockRandomiser = new Mock<IRandomiser>();
-            
 
             mockRandomiser.Setup(x => x.GenerateNumber(It.IsAny<int>())).Returns(1);
 
             contestant.ChooseDoor(doorsList: doors, randomiser: mockRandomiser.Object);
-
             contestant.EnactStrategy(doorsList: doors);
             var actualDoor = contestant.SelectedDoor;
 
@@ -61,10 +59,8 @@ namespace MontyHall.Tests
         [Fact]
         public void ContestantShouldHoldSameDoor_WhenSwitchStrategyIsFalse()
         {
-            var doorNotSelectedAndWithNoPrize = new Door();
-            var doorWithPrize = new Door();
             doorWithPrize.HasPrize = true;
-            var expectedDoor = new Door();
+            var doorNotSelectedAndWithNoPrize = new Door();
             var doors = new List<Door>()
             {
                 doorWithPrize,
@@ -73,13 +69,10 @@ namespace MontyHall.Tests
             };
             var strategy = new Strategy(false);
             var contestant = new Contestant(strategy);
-            var mockRandomiser = new Mock<IRandomiser>();
-            
 
             mockRandomiser.Setup(x => x.GenerateNumber(It.IsAny<int>())).Returns(1);
 
             contestant.ChooseDoor(doorsList: doors, randomiser: mockRandomiser.Object);
-
             contestant.EnactStrategy(doorsList: doors);
             var actualDoor = contestant.SelectedDoor;
 

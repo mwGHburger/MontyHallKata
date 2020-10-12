@@ -5,12 +5,11 @@ namespace MontyHall.Tests
 {
     public class RandomiserTests
     {
-        [Fact]
-        public void ShouldGenerateANumberWithinGivenRange()
+        [Theory]
+        [InlineData(0,3)]
+        public void ShouldGenerateANumberWithinGivenRange(int minValue, int maxValue)
         {
             var random = new Randomiser();
-            var minValue = 0;
-            var maxValue = 3;
 
             var actual = random.GenerateNumber(maxValue);
 

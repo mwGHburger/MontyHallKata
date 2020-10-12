@@ -6,11 +6,13 @@ namespace MontyHall.Tests
 {
     public class GameTests
     {
+        Mock<IContestant> mockContestant = new Mock<IContestant>();
+        Mock<IRandomiser> mockRandomiser = new Mock<IRandomiser>();
+
         [Theory]
         [InlineData(3,3)]
         public void ShouldGenerateDoorsList_GivenQuantity_WhenGameRuns(int expected, int doorQuantity)
         {
-            var mockContestant = new Mock<IContestant>();
             var game = new Game(doorQuantity: doorQuantity, randomiser: new Randomiser(), contestant: mockContestant.Object, host: new Host());
             
             game.Run();
@@ -22,8 +24,6 @@ namespace MontyHall.Tests
         [Fact]
         public void ShouldAssignDoorPrize_WhenGameRuns()
         {
-            var mockRandomiser = new Mock<IRandomiser>();
-            var mockContestant = new Mock<IContestant>();
             var game = new Game(doorQuantity: 3, randomiser: mockRandomiser.Object, contestant: mockContestant.Object, host: new Host());
 
             mockRandomiser.Setup(x => x.GenerateNumber(It.IsAny<int>())).Returns(0);
@@ -37,7 +37,6 @@ namespace MontyHall.Tests
         [Fact]
         public void ContestantShouldChooseDoor_WhenGameRuns()
         {
-            var mockContestant = new Mock<IContestant>();
             var game = new Game(doorQuantity: 3, randomiser: new Randomiser(), mockContestant.Object, new Host());
 
             game.Run();
@@ -48,7 +47,6 @@ namespace MontyHall.Tests
         [Fact]
         public void HostShouldOpenDoorWithNoPrize()
         {
-            var mockContestant = new Mock<IContestant>();
             var mockHost = new Mock<IHost>();
             var game = new Game(doorQuantity: 3, randomiser: new Randomiser(), contestant: mockContestant.Object, host: mockHost.Object);
 
@@ -61,8 +59,6 @@ namespace MontyHall.Tests
         [Fact]
         public void ShouldReturnTrue_WhenContestantSelectsWinningDoor()
         {
-            var mockRandomiser = new Mock<IRandomiser>();
-            var mockContestant = new Mock<IContestant>();
             var game = new Game(doorQuantity: 3, randomiser: mockRandomiser.Object, contestant: mockContestant.Object, host: new Host());
             var winningDoor = new Door();
             winningDoor.HasPrize = true;
@@ -77,7 +73,6 @@ namespace MontyHall.Tests
         [Fact]
         public void ShouldReturnFalse_WhenContestantSelectsLosingDoor()
         {
-            var mockContestant = new Mock<IContestant>();
             var game = new Game(doorQuantity: 3, randomiser: new Randomiser(), contestant: mockContestant.Object, host: new Host());
             var losingDoor = new Door();
             losingDoor.HasPrize = false;

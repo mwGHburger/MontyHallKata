@@ -6,54 +6,48 @@ namespace MontyHall.Tests
 {
     public class SimulationTests
     {
-        [Fact]
-        public void ShouldRunGames_ByAmountSpecified()
+        Mock<IGame> mockGame = new Mock<IGame>();
+        [Theory]
+        [InlineData(10)]
+        public void ShouldRunGames_ByAmountSpecified(int totalRuns)
         {
-            var mockGame = new Mock<IGame>();
-            var totalRuns = 10;
-            var simulation = new Simulation(mockGame.Object,totalRuns);
+            var simulation = new Simulation(game: mockGame.Object, totalRuns: totalRuns);
 
             simulation.Run();
 
             mockGame.Verify(x => x.Run(), Times.Exactly(totalRuns));
         }
 
-        [Fact]
-        public void ShouldIncrementWinCount_WhenContestantWinsGame()
+        [Theory]
+        [InlineData(5,5)]
+        public void ShouldIncrementWinCount_WhenContestantWinsGame(int expectedWinCount, int totalRuns)
         {
-            var mockGame = new Mock<IGame>();
-            var totalRuns = 5;
             var simulation = new Simulation(game: mockGame.Object, totalRuns: totalRuns);
-            var expected = 5;
 
             mockGame.Setup(x =>x.DidContestantWin()).Returns(true);
 
             simulation.Run();
-            var actual = simulation.TotalContestantWins;
+            var actualWinCount = simulation.TotalContestantWins;
 
-            Assert.Equal(expected, actual);
+            Assert.Equal(expectedWinCount, actualWinCount);
         }
 
-        [Fact]
-        public void SwitchStrategyHasAHigherWinRateThanNotSwitching_OverA1000Runs()
+        [Theory]
+        [InlineData(3,1000)]
+        public void SwitchStrategyHasAHigherWinRateThanNotSwitching_OverA1000Runs(int doorQuantity, int totalRuns)
         {
-            System.Console.WriteLine("Start");
-            var doorQuantity = 3;
             var calculator = new Calculator();
             var switchStrategy = new Strategy(true);
             var stayStrategy = new Strategy(false);
-            var simulation1 = new Simulation(new Game(doorQuantity: doorQuantity, new Randomiser(), new Contestant(switchStrategy), new Host()), 1000);
-            var simulation2 = new Simulation(new Game(doorQuantity: doorQuantity, new Randomiser(), new Contestant(stayStrategy), new Host()), 1000);
+            var simulation1 = new Simulation(new Game(doorQuantity: doorQuantity, new Randomiser(), new Contestant(switchStrategy), new Host()), totalRuns);
+            var simulation2 = new Simulation(new Game(doorQuantity: doorQuantity, new Randomiser(), new Contestant(stayStrategy), new Host()), totalRuns);
             
             simulation1.Run();
             simulation2.Run();
-            var switchWinRate =  calculator.CalculateWinPercentageInSimulation(simulation1);
-            var stayWinRate =  calculator.CalculateWinPercentageInSimulation(simulation2);
+            var switchWinRate =  calculator.CalculateWinProbabilityInSimulation(simulation1);
+            var stayWinRate =  calculator.CalculateWinProbabilityInSimulation(simulation2);
             
             Assert.True(switchWinRate > stayWinRate);
-            System.Console.WriteLine(switchWinRate);
-            System.Console.WriteLine(stayWinRate);
-            System.Console.WriteLine("End");
         }
     }
 }
