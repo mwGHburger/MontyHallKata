@@ -39,7 +39,6 @@ namespace MontyHall
         
         private void CreateDoors(int doorQuantity)
         {
-            
             for(int i = 0; i < doorQuantity; i++)
             {
                 DoorsList.Add(new Door());
