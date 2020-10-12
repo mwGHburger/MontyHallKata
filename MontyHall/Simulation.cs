@@ -19,9 +19,15 @@ namespace MontyHall
                 Game.Run();
                 if (Game.DidContestantWin())
                 {
-                    TotalContestantWins++;
+                    IncrementWinCounter();
                 }
+                Game.Reset();
             }
+        }
+
+        private void IncrementWinCounter()
+        {
+            TotalContestantWins++;
         }
     }
 }

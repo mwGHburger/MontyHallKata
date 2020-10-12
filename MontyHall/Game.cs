@@ -20,20 +20,26 @@ namespace MontyHall
         }
         public void Run()
         {
-            System.Console.WriteLine("game runs");
             CreateDoors(DoorQuantity);
             AssignDoorPrize();
             Contestant.ChooseDoor(doorsList: DoorsList, randomiser: Randomiser);
             Host.RevealDoorWithNoPrize(DoorsList);
+            Contestant.EnactStrategy(DoorsList);
+        }
+
+        public void Reset()
+        {
+            DoorsList = new List<Door>();
         }
 
         public bool DidContestantWin()
         {
-            return true;
+            return Contestant.SelectedDoor.HasPrize;
         }
         
         private void CreateDoors(int doorQuantity)
         {
+            
             for(int i = 0; i < doorQuantity; i++)
             {
                 DoorsList.Add(new Door());

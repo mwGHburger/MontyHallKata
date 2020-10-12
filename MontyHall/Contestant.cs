@@ -5,6 +5,12 @@ namespace MontyHall
     public class Contestant : IContestant
     {
         public Door SelectedDoor { get; private set; }
+        public Strategy Strategy { get; private set; }
+
+        public Contestant(Strategy strategy)
+        {
+            Strategy = strategy;
+        }
         public void ChooseDoor(List<Door> doorsList, IRandomiser randomiser)
         {
             var maxDoors = doorsList.Count;
@@ -14,9 +20,9 @@ namespace MontyHall
             SelectedDoor = door;
         }
 
-        public void EnactStrategy(List<Door> doorsList, Strategy strategy)
+        public void EnactStrategy(List<Door> doorsList)
         {
-            if (strategy.WillSwitchDoors)
+            if (Strategy.WillSwitchDoors)
             {
                 SwitchDoors(doorsList);
             }

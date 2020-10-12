@@ -18,7 +18,8 @@ namespace MontyHall.Tests
                 new Door()
             };
             var mockRandomiser = new Mock<IRandomiser>();
-            var contestant = new Contestant();
+            var strategy = new Strategy(true);
+            var contestant = new Contestant(strategy);
 
             mockRandomiser.Setup(x => x.GenerateNumber(It.IsAny<int>())).Returns(1);
 
@@ -42,15 +43,16 @@ namespace MontyHall.Tests
                 firstSelectedDoor,
                 expectedDoor
             };
-            var contestant = new Contestant();
-            var mockRandomiser = new Mock<IRandomiser>();
             var strategy = new Strategy(true);
+            var contestant = new Contestant(strategy);
+            var mockRandomiser = new Mock<IRandomiser>();
+            
 
             mockRandomiser.Setup(x => x.GenerateNumber(It.IsAny<int>())).Returns(1);
 
             contestant.ChooseDoor(doorsList: doors, randomiser: mockRandomiser.Object);
 
-            contestant.EnactStrategy(doorsList: doors, strategy: strategy);
+            contestant.EnactStrategy(doorsList: doors);
             var actualDoor = contestant.SelectedDoor;
 
             Assert.Same(expectedDoor, actualDoor);
@@ -69,15 +71,16 @@ namespace MontyHall.Tests
                 expectedDoor,
                 doorNotSelectedAndWithNoPrize
             };
-            var contestant = new Contestant();
-            var mockRandomiser = new Mock<IRandomiser>();
             var strategy = new Strategy(false);
+            var contestant = new Contestant(strategy);
+            var mockRandomiser = new Mock<IRandomiser>();
+            
 
             mockRandomiser.Setup(x => x.GenerateNumber(It.IsAny<int>())).Returns(1);
 
             contestant.ChooseDoor(doorsList: doors, randomiser: mockRandomiser.Object);
 
-            contestant.EnactStrategy(doorsList: doors, strategy: strategy);
+            contestant.EnactStrategy(doorsList: doors);
             var actualDoor = contestant.SelectedDoor;
 
             Assert.Same(expectedDoor, actualDoor);
