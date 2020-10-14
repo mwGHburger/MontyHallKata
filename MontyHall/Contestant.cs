@@ -4,7 +4,7 @@ namespace MontyHall
 {
     public class Contestant : IContestant
     {
-        public Door SelectedDoor { get; private set; }
+        public Door SelectedDoor { get; set; }
         public Strategy Strategy { get; private set; }
 
         public Contestant(Strategy strategy)
@@ -35,7 +35,6 @@ namespace MontyHall
                 var hasDoorNotBeenSelectedOrOpened = !(door.HasBeenSelected || door.HasBeenOpened);
                 if (hasDoorNotBeenSelectedOrOpened)
                 {
-                    SelectedDoor.HasBeenSelected = false;
                     SelectedDoor = door;
                     door.HasBeenSelected = true;
                 }

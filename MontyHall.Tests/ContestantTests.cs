@@ -36,13 +36,12 @@ namespace MontyHall.Tests
         [Fact]
         public void ContestantShouldHoldNewDoor_WhenSwitchStrategyIsTrue()
         {
-            doorWithPrize.HasPrize = true;
             var firstSelectedDoor = new Door();
+            var secondSelectedDoor = new Door();
             var doors = new List<Door>()
             {
-                doorWithPrize,
+                secondSelectedDoor,
                 firstSelectedDoor,
-                expectedDoor
             };
             var strategy = new Strategy(true);
             var contestant = new Contestant(strategy);
@@ -52,8 +51,7 @@ namespace MontyHall.Tests
             contestant.ChooseDoor(doorsList: doors, randomiser: mockRandomiser.Object);
             contestant.EnactStrategy(doorsList: doors);
             var actualDoor = contestant.SelectedDoor;
-
-            Assert.Same(expectedDoor, actualDoor);
+            Assert.Same(secondSelectedDoor, actualDoor);
         }
 
         [Fact]
